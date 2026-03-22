@@ -32,7 +32,7 @@ def __enrich(Path, df_main, pd):
     df["updated_at"] = pd.to_datetime(df["updated_at"], utc=True)
     df["date"] = df["updated_at"].dt.floor("D")
     df["duration_min"] = (df["duration_ms"] / 60_000).round(1)
-    df["project"] = df["cwd"].apply(lambda p: Path(p).name)
+    df["project"] = df["project"].apply(lambda p: Path(p).name if p else "other")
 
     return (df,)
 
